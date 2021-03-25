@@ -4,6 +4,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
+var apiRouter = require('./routes/api');
 
 var engine = require('./engine');
 
@@ -17,11 +18,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // set template engine and views path
 app.engine('html', engine);
-app.set('views', './public/views') // specify the views directory
+app.set('views', './views') // specify the views directory
 app.set('view engine', 'html') // register the template engine
 
 // routers
 app.use('/', indexRouter);
+app.use('/api', apiRouter);
 
 // not found
 app.use((req, res) => {

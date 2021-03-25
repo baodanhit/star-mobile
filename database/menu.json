@@ -1,0 +1,294 @@
+[
+    {
+        "title": "Điện thoại",
+        "icon": "fa-mobile-alt",
+        "path": "#",
+        "subMenu": [
+            {
+                "filterName": "Hãng sản xuất",
+                "items": [
+                    {
+                        "title": "Samsung",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Apple",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Oppo",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Vivo",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Vsmart",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Xiaomi",
+                        "path": "#"
+                    }
+                ]
+            },
+            {
+                "filterName": "Mức giá",
+                "items": [
+                    {
+                        "title": "Dưới 2 triệu",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Từ 2 đến 4 triệu",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Từ 4 đến 7 triệu",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Từ 7 đến 13 triệu",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Trên 13 triệu",
+                        "path": "#"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "PC bộ",
+        "icon": "fa-desktop",
+        "path": "#",
+        "subMenu": [
+            {
+                "filterName": "Hãng sản xuất",
+                "items": [
+                    {
+                        "title": "Apple",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Asus",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Acer",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Dell",
+                        "path": "#"
+                    },
+                    {
+                        "title": "HP",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Lenovo",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Microsoft",
+                        "path": "#"
+                    },
+                    {
+                        "title": "MSI",
+                        "path": "#"
+                    }
+                ]
+            },
+            {
+                "filterName": "Mức giá",
+                "items": [
+                    {
+                        "title": "Dưới 5 triệu",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Từ 5 đến 10 triệu",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Từ 10 đến 15 triệu",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Từ 15 đến 20 triệu",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Từ 20 đến 25 triệu",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Từ 25 đến 30 triệu",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Trên 30 triệu",
+                        "path": "#"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Laptop",
+        "icon": "fa-laptop",
+        "path": "#",
+        "subMenu": [
+            {
+                "filterName": "Hãng sản xuất",
+                "items": [
+                    {
+                        "title": "Apple",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Asus",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Acer",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Dell",
+                        "path": "#"
+                    },
+                    {
+                        "title": "HP",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Lenovo",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Microsoft",
+                        "path": "#"
+                    },
+                    {
+                        "title": "MSI",
+                        "path": "#"
+                    }
+                ]
+            },
+            {
+                "filterName": "Mức giá",
+                "items": [
+                    {
+                        "title": "Dưới 5 triệu",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Từ 5 đến 10 triệu",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Từ 10 đến 15 triệu",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Từ 15 đến 20 triệu",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Từ 20 đến 25 triệu",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Từ 25 đến 30 triệu",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Trên 30 triệu",
+                        "path": "#"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Tablet",
+        "icon": "fa-tablet-alt",
+        "path": "#",
+        "subMenu": [
+            {
+                "filterName": "Hãng sản xuất",
+                "items": [
+                    {
+                        "title": "Apple",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Samsung",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Lenovo",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Huawei",
+                        "path": "#"
+                    }
+                ]
+            },
+            {
+                "filterName": "Mức giá",
+                "items": [
+                    {
+                        "title": "Dưới 2 triệu",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Từ 2 đến 5 triệu",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Từ 5 đến 8 triệu",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Trên 8 triệu",
+                        "path": "#"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Phụ kiện",
+        "icon": "fa-headphones-alt",
+        "path": "#",
+        "subMenu": [
+            {
+                "filterName": "Các mặt hàng phụ kiện",
+                "items": [
+                    {
+                        "title": "Ốp lưng",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Tai nghe",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Cáp sạc",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Sạc dự phòng",
+                        "path": "#"
+                    }
+                ]
+            }
+        ]
+    }
+]
