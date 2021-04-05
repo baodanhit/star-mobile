@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+
+    <title>Get this web</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #4158D0;
+            background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+            color: #ffffff;
+        }
+
+        .container {
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        .w-50 {
+            width: 50%;
+        }
+
+        .mx-auto {
+            margin: 0 auto;
+        }
+
+        #main {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        #wifiname span {
+            background-color: #00C853;
+            padding: 5px;
+        }
+
+        #qr-code {
+            box-shadow: 5px 5px 5px #333333;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="w-50 mx-auto" id="main">
+            <h3 id="wifiname"></h3>
+            <img src="#" alt="qr-code" id="qr-code">
+        </div>
+    </div>
+    <script>
+        axios.get('/qr/data').then(res => {
+            document.getElementById('qr-code').setAttribute('src', res.data.qr);
+            document.getElementById('wifiname').innerHTML = `Kết nối với wifi: <span>${res.data.wifiname}</span> và quét mã để chạy ứng dụng`;
+        })
+    </script>
+</body>
+
+</html>

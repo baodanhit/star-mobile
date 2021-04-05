@@ -1,0 +1,129 @@
+<!-- ! category -->
+<section class="row m-0 mt-2 py-3 d-block d-md-none" id="category">
+    <div class="section-content col-12">
+        <div class="w-100 card">
+            <div class="px-2 m-2 d-flex flex-wrap justify-content-around align-items-start">
+                <a ng-href="{{item.path}}"
+                    class="d-flex flex-column justify-content-center align-items-center p-2 m-2 box"
+                    ng-repeat="item in menu track by $index">
+                    <i class="fas {{item.icon}} bg-color-3 text-white rounded-lg icon-block"></i>
+                    <span class="text-black text-center">
+                        {{item.title}}
+                    </span>
+                </a>
+                <a href="#" class="d-flex flex-column justify-content-center align-items-center p-2 m-2 box">
+                    <i class="fab fa-hotjar bg-color-3 text-white rounded-lg icon-block"></i>
+                    <span class="text-black text-center">
+                        Hot sale
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end category -->
+<!-- ! ads -->
+<section class="row m-0" id="ads">
+    <div class="col-md-8 col-12 p-0 pb-2 box-left-ads" style="background-color: #ec101c;">
+        <div id="carouselId" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselId" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselId" data-slide-to="1"></li>
+                <li data-target="#carouselId" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner" role="listbox">
+                <div class="carousel-item active">
+                    <img src="/src/images/637501915916426465_F_H1_800x300.jpg" alt="First slide" class="w-100">
+                </div>
+                <div class="carousel-item">
+                    <img src="/src/images/637501915916426465_F_H1_800x300.jpg" alt="Second slide" class="w-100">
+                </div>
+                <div class="carousel-item">
+                    <img src="/src/images/637501915916426465_F_H1_800x300.jpg" alt="Third slide" class="w-100">
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselId" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselId" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+    <div class="col-12 col-md-4 d-none d-sm-block p-0 pl-md-1 box-right container">
+        <div class="box-right-ads row m-0">
+            <a href="#" class="col-12 col-sm-4 col-md-12 p-0 text-center">
+                <img src="https://images.fpt.shop/unsafe/fit-in/385x100/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2021/3/15/637514370154950943_4EFC8C71-C911-4524-90FE-97F64D75C197.png"
+                    alt="Xiaomi Note 9 giảm 1tr H2 T3" title="Xiaomi Note 9 giảm 1tr H2 T3" class="w-100 mb-1">
+            </a>
+            <a href="#" class="col-12 col-sm-4 col-md-12 p-0">
+                <img src="https://images.fpt.shop/unsafe/fit-in/385x100/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2021/3/1/637501931585291129_LaptopOnline-H2_385x100.png"
+                    alt="Laptop Online T3" title="Laptop Online T3" class="w-100 mb-1">
+            </a>
+            <a href="#" class="col-12 col-sm-4 col-md-12 p-0">
+                <img src="https://images.fpt.shop/unsafe/fit-in/385x100/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2021/3/1/637501931585291129_LaptopOnline-H2_385x100.png"
+                    alt="Laptop Online T3" title="Laptop Online T3" class="w-100 mb-0">
+            </a>
+        </div>
+    </div>
+</section>
+<!-- end ads -->
+<!-- ! best-selling products -->
+<!-- <section class="row m-0 mt-2" id="ads">
+            <div class="section-title mt-2 p-2">
+              <h6 class="text-uppercase">Bán chạy tháng này</h6>
+            </div>
+            <div class="section-content">
+
+            </div>
+          </section> -->
+<!-- end best-selling products -->
+<!-- ! products -->
+<section class="m-0 mt-2 container-fluid" id="ads">
+    <div class="row m-0 mt-2 section-title">
+        <h6 class="text-uppercase">Sản phẩm nổi bật</h6>
+    </div>
+    <div class="section-content">
+        <div class="row mx-auto" ng-repeat="product in products">
+            <div class="w-100 mb-3" ng-repeat="(category, items) in product">
+                <p class="card-title p-3 rounded-lg bg-dark text-white">
+                    {{category}}
+                    <span class="float-right">
+                        <a href="#">Xem tất cả ></a>
+                    </span>
+                </p>
+                <div class="swiper-container">
+                    <!-- Additional required wrapper -->
+                    <div class="swiper-wrapper">
+                        <!-- Slides -->
+                        <div class="swiper-slide mx-md-1" ng-repeat="item in items">
+                            <div class="card card-product p-0 mx-auto">
+                                <div class="card-body" title="{{item.name}}">
+                                    <div class="card-product__img text-center swiper-zoom-container">
+                                        <img ng-src="{{item.images[0]}}" alt="product" class="w-75">
+                                    </div>
+                                    <div class="card-product__info text-center">
+                                        <div class="product__name font-weight-bold">{{item.name}}</div>
+                                        <div class="product__price my-2 text-center">
+                                            <h5 class="text-danger">{{item.price}}</h5>
+                                        </div>
+                                        <div class="product__nav d-flex justify-content-between align-items-center">
+                                            <button class="btn btn-danger">Mua ngay</button>
+                                            <button class="btn btn-light">Xem thêm</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- slider's pagination -->
+                    <div class="swiper-button-prev color-1"></div>
+                    <div class="swiper-button-next color-1"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end products -->

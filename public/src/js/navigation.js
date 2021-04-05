@@ -1,4 +1,15 @@
 $(function () {
+
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        // true for mobile device
+        var mobileNav = document.querySelectorAll('.mobile');
+        mobileNav.forEach(e => {
+            e.classList.add('d-block');
+        })
+    } else {
+        // false for not mobile device
+
+    }
     //hide nav open btn when the nav is open, adding/removing open classes to nav and content
     var navOpenBtn = document.querySelector('.nav-open-btn');
     var navCloseBtn = document.querySelector('.nav__close');

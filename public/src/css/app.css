@@ -31,6 +31,10 @@ a.hover-main:hover {
   border: none;
   outline: none;
 }
+.no-shadow,
+.no-shadow:focus {
+  box-shadow: none !important;
+}
 button:focus {
   outline: none !important;
   box-shadow: none !important;
@@ -55,15 +59,6 @@ button:focus {
   box-shadow: 12px 12px 16px 0 rgba(0, 0, 0, 0.25),
     -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
 }
-.z-index-1 {
-  z-index: 1;
-}
-.z-index-2 {
-  z-index: 2;
-}
-.z-index-3 {
-  z-index: 3;
-}
 .w-90 {
   width: 90%;
 }
@@ -79,6 +74,7 @@ button:focus {
   transform: translateX(-50%);
   transition: 0.2s;
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.25);
+  z-index: 99;
 }
 .submenu-container:hover > .submenu-menu {
   display: flex;
@@ -104,4 +100,81 @@ button:focus {
   .input-group-rounded {
     max-width: 400px;
   }
+  .w-sm-25 {
+    width: 25% !important;
+  }
+  .w-sm-75 {
+    width: 75% !important;
+  }
+}
+@media screen and (min-width: 768px) {
+  .w-md-25 {
+    width: 25% !important;
+  }
+  .w-md-75 {
+    width: 75% !important;
+  }
+}
+@media screen and (max-width: 576px) {
+  .box {
+    width: 25%;
+  }
+  .hiden-mobile {
+    display: none !important;
+  }
+}
+.sticky-bottom {
+  position: sticky;
+  bottom: 0;
+  z-index: 1020;
+}
+.icon-block {
+  width: 45px;
+  height: 45px;
+  line-height: 45px;
+  text-align: center;
+}
+.card-product {
+  width: 250px;
+}
+.product__config {
+  font-size: 0.8rem;
+}
+.swiper-button-prev,
+.swiper-button-next {
+  width: 32px;
+  height: 32px;
+  padding: 10px;
+  border-radius: 50%;
+  background: #50505080;
+}
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  font-size: 1em;
+  font-weight: 900;
+}
+.product__name {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.btn-delete {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 50px;
+}
+.item-index {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 30px;
+  height: 30px;
+}
+.modal-backdrop {
+  display: none;
+}
+.white-space-nowrap {
+  white-space: nowrap;
 }

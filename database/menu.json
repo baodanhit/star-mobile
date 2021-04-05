@@ -61,10 +61,32 @@
         ]
     },
     {
-        "title": "PC bộ",
+        "title": "PC để bàn",
         "icon": "fa-desktop",
         "path": "#",
         "subMenu": [
+            {
+                "filterName": "",
+                "items": [
+                    {
+                        "title": "CPU",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Màn hình",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Chuột",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Bàn phím",
+                        "path": "#"
+                    }
+                    
+                ]
+            },
             {
                 "filterName": "Hãng sản xuất",
                 "items": [
@@ -215,7 +237,7 @@
         ]
     },
     {
-        "title": "Tablet",
+        "title": "Máy tính bảng",
         "icon": "fa-tablet-alt",
         "path": "#",
         "subMenu": [
@@ -272,7 +294,7 @@
                 "filterName": "Các mặt hàng phụ kiện",
                 "items": [
                     {
-                        "title": "Ốp lưng",
+                        "title": "Chuột",
                         "path": "#"
                     },
                     {
@@ -280,11 +302,7 @@
                         "path": "#"
                     },
                     {
-                        "title": "Cáp sạc",
-                        "path": "#"
-                    },
-                    {
-                        "title": "Sạc dự phòng",
+                        "title": "Bàn phím",
                         "path": "#"
                     }
                 ]

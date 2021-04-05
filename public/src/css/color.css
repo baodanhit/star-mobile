@@ -13,12 +13,26 @@
   color: var(--color-main);
 }
 .bg-gradient-1 {
-  background-image: radial-gradient(
-    circle 300px at 8% 89.3%,
-    rgba(20, 157, 208, 1) 0%,
-    rgba(140, 63, 226, 1) 90%
-  );
+  background-color: #21d4fd;
+  background-image: linear-gradient(19deg, #21d4fd 0%, #b721ff 100%);
+
+  color: #ffffff;
+}
+.bg-gradient-2 {
+  background-color: #85ffbd;
+  background-image: linear-gradient(45deg, #85ffbd 0%, #fffb7d 100%);
 }
 .bg-color-1 {
   background-color: var(--color-1);
+}
+.color-2,
+a.color-2:active,
+a.color-2:hover {
+  color: var(--color-2);
+}
+.bg-color-2 {
+  background-color: var(--color-2);
+}
+.bg-color-3 {
+  background-color: var(--color-3);
 }
