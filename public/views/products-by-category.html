@@ -1,0 +1,52 @@
+<section class="container mx-auto p-md-0 m-0 py-3 d-block">
+    <div class="row m-0 mt-2 p-2 section-title">
+        <h5>{{translation[categoryStr]}} <small>({{count}} sản phẩm)</small> </h5>
+    </div>
+    <div class="section-content row">
+        <div class="" id="brands"></div>
+        <div class="position-relative">
+            <div class="w-100 all-products d-flex flex-wrap justify-content-around align-items-start">
+                <div class="px-1" ng-repeat="item in mobiles">
+                    <a ng-href="#!product/{{item._id}}" class="text-black mb-2 card card-product">
+                        <div class="card-body" title="{{item.name}}">
+                            <div class="text-center">
+                                <img ng-src="{{item.images[0]}}" alt="{{item.name}}" class="card-product__img w-75">
+                            </div>
+                            <div class="card-product__info px-2 text-left">
+                                <h6 class="product__name font-weight-bold">{{item.name}}</h6>
+                                <div class="product__price">
+                                    <span class="my-0 w-50 text-danger font-weight-bold font-size-small">
+                                        {{toCurrency(item.price['special'])}}</span>
+                                    <del class="text-muted font-size-small">{{toCurrency(item.price['old'])}}</del>
+                                </div>
+                                <div class="product__rating my-0">
+                                    <i class="fa fa-star color-main font-size-small"
+                                        ng-repeat="i in [] | range: item.rating"></i>
+                                    <i class="fa fa-star text-dark font-size-small"
+                                        ng-repeat="i in [] | range: 5-item.rating"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav class="row mt-3 justify-content-center">
+        <ul class="pagination">
+            <li class="page-item" ng-class="{disabled: currentPage == 1}">
+                <button class="page-link" aria-label="Previous" ng-click="newPage(currentPage-1)">
+                    <span aria-hidden="true">&laquo;</span>
+                </button>
+            </li>
+            <li class="page-item" ng-class="{active: page == currentPage}" ng-repeat="page in [] | range:totalPages">
+                <button class="page-link" ng-click="newPage(page)">{{page}}</button>
+            </li>
+            <li class="page-item" ng-class="{disabled: currentPage == totalPages}">
+                <button class="page-link" aria-label="Next" ng-click="newPage(currentPage+1)">
+                    <span aria-hidden="true">&raquo;</span>
+                </button>
+            </li>
+        </ul>
+    </nav>
+</section>

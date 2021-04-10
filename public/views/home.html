@@ -4,16 +4,16 @@
         <div class="w-100 card">
             <div class="px-2 m-2 d-flex flex-wrap justify-content-around align-items-start">
                 <a ng-href="{{item.path}}"
-                    class="d-flex flex-column justify-content-center align-items-center p-2 m-2 box"
+                    class="d-flex flex-column justify-content-between align-items-center p-2 m-2 box card"
                     ng-repeat="item in menu track by $index">
-                    <i class="fas {{item.icon}} bg-color-3 text-white rounded-lg icon-block"></i>
-                    <span class="text-black text-center">
+                    <img src="/src/images/{{item.icon}}.jpg" alt="" class="w-75">
+                    <span class="text-black text-center font-size-small">
                         {{item.title}}
                     </span>
                 </a>
-                <a href="#" class="d-flex flex-column justify-content-center align-items-center p-2 m-2 box">
-                    <i class="fab fa-hotjar bg-color-3 text-white rounded-lg icon-block"></i>
-                    <span class="text-black text-center">
+                <a href="#" class="d-flex flex-column justify-content-between align-items-center p-2 m-2 box card">
+                    <img src="/src/images/flash-sale.jpg" alt="" class="w-100">
+                    <span class="text-black text-center font-size-small">
                         Hot sale
                     </span>
                 </a>
@@ -82,40 +82,46 @@
 <!-- end best-selling products -->
 <!-- ! products -->
 <section class="m-0 mt-2 container-fluid" id="ads">
-    <div class="row m-0 mt-2 section-title">
-        <h6 class="text-uppercase">Sản phẩm nổi bật</h6>
+    <div class="row m-0 mt-2 p-2 section-title">
+        <h6 class="text-uppercase"><i class="fas fa-star color-main"></i> Sản phẩm nổi bật</h6>
     </div>
     <div class="section-content">
         <div class="row mx-auto" ng-repeat="product in products">
             <div class="w-100 mb-3" ng-repeat="(category, items) in product">
-                <p class="card-title p-3 rounded-lg bg-dark text-white">
+                <h5 class="card-title p-3 border-bottom border-danger">
                     {{category}}
-                    <span class="float-right">
-                        <a href="#">Xem tất cả ></a>
+                    <span class="float-right font-size-small">
+                        <a ng-href="#!category/{{toUrlString(category)}}" class="color-main hover-main">Xem tất cả ></a>
                     </span>
-                </p>
-                <div class="swiper-container">
+                </h5>
+                <div class="swiper-container product-swiper">
                     <!-- Additional required wrapper -->
                     <div class="swiper-wrapper">
                         <!-- Slides -->
                         <div class="swiper-slide mx-md-1" ng-repeat="item in items">
-                            <div class="card card-product p-0 mx-auto">
+                            <a ng-href="#!product/{{item._id}}" class="text-black mx-auto mb-2 card card-product">
                                 <div class="card-body" title="{{item.name}}">
-                                    <div class="card-product__img text-center swiper-zoom-container">
-                                        <img ng-src="{{item.images[0]}}" alt="product" class="w-75">
+                                    <div class="text-center">
+                                        <img ng-src="{{item.images[0]}}" alt="{{item.name}}"
+                                            class="card-product__img w-75">
                                     </div>
-                                    <div class="card-product__info text-center">
-                                        <div class="product__name font-weight-bold">{{item.name}}</div>
-                                        <div class="product__price my-2 text-center">
-                                            <h5 class="text-danger">{{item.price}}</h5>
+                                    <div class="card-product__info px-2 text-left">
+                                        <h6 class="product__name font-weight-bold">{{item.name}}</h6>
+                                        <div class="product__price">
+                                            <span class="my-0 w-50 text-danger font-weight-bold font-size-small">
+                                                {{toCurrency(item.price['special'])}}</span>
+                                            <del
+                                                class="text-muted font-size-small">{{toCurrency(item.price['old'])}}</del>
                                         </div>
-                                        <div class="product__nav d-flex justify-content-between align-items-center">
-                                            <button class="btn btn-danger">Mua ngay</button>
-                                            <button class="btn btn-light">Xem thêm</button>
+                                        <div class="product__rating my-0">
+                                            <i class="fa fa-star color-main font-size-small"
+                                                ng-repeat="i in [] | range: item.rating"></i>
+                                            <i class="fa fa-star text-dark font-size-small"
+                                                ng-repeat="i in [] | range: 5-item.rating"></i>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     </div>
                     <!-- slider's pagination -->

@@ -1,0 +1,161 @@
+<!-- product view -->
+<section class="container mx-auto p-md-0 m-0 py-3 d-block" id="product-view">
+    <div class="row px-2">
+        <h4 class="product-name">{{product.name}}</h4>
+    </div>
+    <div class="row border-top px-2 py-4">
+        <div class="col-12 col-md-5 left-box product-image__wrapper">
+            <!-- Swiper -->
+            <div class="swiper-container gallery-top" id="gallery-top">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" ng-repeat="img in product.images" style="background-image:url({{img}})">
+                    </div>
+                </div>
+                <!-- Add Arrows -->
+                <div class="swiper-button-next swiper-button-white"></div>
+                <div class="swiper-button-prev swiper-button-white"></div>
+            </div>
+            <div class="swiper-container gallery-thumbs" id="gallery-thumbs">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" ng-repeat="img in product.images" style="background-image:url({{img}})">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-5 pt-3 pt-md-0 right-box product-selection">
+            <div class="product-price">
+                <h5 class="price-special font-weight-bold">Giá chỉ: <span
+                        class="color-main">{{toCurrency(activePrice)}}</span></h5>
+                <span class="price-old mb-2">
+                    Giá niêm yết:
+                    <del class="text-muted">{{toCurrency(product.price['old'])}}</del>
+                </span>
+            </div>
+            <div class="product-option-color__wrapper py-2">
+                <p>Chọn màu sắc: </p>
+                <ul class="list-unstyled">
+                    <li class="product-option-color p-2 mb-4 mx-4 mx-md-2 d-inline-block border rounded-lg"
+                        ng-repeat="(color, price) in product.colors" role="button" data-color="{{color}}"
+                        data-price="{{price}}">
+                        <div class="d-flex flex-column justify-content-center align-items-center">
+                            <span class="fa fa-check"></span>
+                            <span class="opt-name">{{color}}</span>
+                            <span class="opt-price text-danger font-weight-bold">{{toCurrency(price)}}</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="product-actions-wrapper">
+                <button class="btn w-100 bg-main text-white" id="btnAddToCart" role="button" ng-click="addToCart()">
+                    <h6>Mua ngay</h6>
+                    <small>(Giao tận nơi hoặc đến lấy tại cửa hàng)</small>
+                </button>
+                <div class="position-fixed p-3"
+                    style="min-width: 270px;z-index: 5; left: 50%; top: 0;transform: translateX(-50%);">
+                    <div id="liveToast" class="toast hide rounded-lg" role="alert" aria-live="assertive"
+                        aria-atomic="true" data-delay="3000">
+                        <div class="toast-header bg-success text-white">
+                            <i class="fa fa-check-circle rounded mr-2" aria-hidden="true"></i>
+                            <strong class="mr-auto">Đã thêm vào giỏ hàng</strong>
+                            <button type="button" class="text-white ml-2 mb-1 close" data-dismiss="toast"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="toast-body bg-success text-white text-center">
+                            <a href="#!cart" class="text-light">
+                                <span class="">Xem giỏ hàng</span>
+                                <i class="fa fa-arrow-right ml-3" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="my-2 row">
+                    <div class="col-6 pr-1">
+                        <a class="btn w-100 h-100 btn-primary" href="#" role="button">
+                            <h6>Trả góp 0%</h6>
+                            <small>(Xét duyệt qua điện thoại)</small>
+                        </a>
+                    </div>
+                    <div class="col-6 pl-1">
+                        <a class="btn w-100 h-100 btn-primary" href="#" role="button">
+                            <h6>Trả góp qua thẻ</h6>
+                            <small>(Visa, Master Card, ATM)</small>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-2 promotion__wrapper d-block card p-0 border-danger">
+            <div id="promotion__header" class="card-header bg-main text-white text-center">
+                <i class="fa fa-gift"></i> Khuyến mãi
+            </div>
+            <div class="promotion__info">
+                <!-- CTKM chung -->
+                <div class="promotion__body card-body">
+                    <div class="pack-detail">
+                        <ul class="list-unstyled">
+                            <li>
+                                <a href="https://cellphones.com.vn/thu-cu-doi-moi" class="text-black">
+                                    [HOT] Thu cũ lên đời giá cao - Thủ tục nhanh - Trợ giá lên tới 1 triệu
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row py-4">
+        <div class="col-md-4 col-12 pb-4" id="product-detail" ng-if="product.detailInfo">
+            <table class="table table-resposive table-bordered">
+                <thead>
+                    <tr>
+                        <th class="text-center" colspan="2">Thông số kỹ thuật</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="(title, content) in product.detailInfo | objLimitTo: 10">
+                        <td class="font-weight-bold">{{title}}</td>
+                        <td class="">{{content}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="text-center">
+                <button type="button" id="btn-show-detail" class="btn btn-outline-danger mx-auto" data-toggle="modal"
+                    data-target="#staticBackdrop">Xem
+                    thêm chi tiết</button>
+            </div>
+            <div class="modal fade mb-3" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
+                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Thông tin chi tiết</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table table-resposive table-bordered">
+                                <tbody>
+                                    <tr ng-repeat="(title, content) in product.detailInfo">
+                                        <td class="font-weight-bold">{{title}}</td>
+                                        <td class="">{{content}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8 col-12" id="product-preview">
+            <div class="preview-content show-more" ng-bind-html="product.preview"></div>
+            <div class="text-center">
+                <button type="button" class="btn btn-outline-primary btn-show-more mt-2">Xem
+                    thêm</button>
+            </div>
+        </div>
+    </div>
+</section>

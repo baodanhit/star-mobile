@@ -17,6 +17,8 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" defer></script>
   <script src="/src/js/angularJS/angular.min.js" defer></script>
   <script src="/src/js/angularJS/angular-route.min.js" defer></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-sanitize.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-animate/1.8.2/angular-animate.min.js" defer></script>
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   <script src="/src/js/getdata.js"></script>
   <script src="/src/js/app.js" defer></script>
@@ -31,6 +33,9 @@
 </head>
 
 <body>
+  <div class="preloader-container bg-white">
+    <img src="/src/images/preloader.gif" class="preloader" alt="loading">
+  </div>
   <div id="app" ng-app="app-main" ng-controller="appCtrl">
     <!-- mobile navigation -->
     <!-- ! left slide nav -->
@@ -155,9 +160,9 @@
       <!-- end desktop navigation -->
 
       <!-- !! content block-->
-      <main class="content px-md-3 mb-5 min-vh-100">
-        <div class="container-fluid py-md-3 px-md-5">
-          <div ng-view></div>
+      <main class="content px-md-3 mb-5 min-vh-100 bg-color-0">
+        <div class="container-fluid py-md-3 px-md-5 min-vh-100 bg-white">
+          <div id="routedContent" ng-view></div>
         </div>
       </main>
       <div ng-include="'/views/footer.html'"></div>
@@ -192,6 +197,7 @@
     </nav>
     <!-- end bottom nav -->
   </div>
+  <script src="/src/js/preloader.js"></script>
 </body>
 
 </html>

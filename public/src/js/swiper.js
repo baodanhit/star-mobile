@@ -1,5 +1,5 @@
 window.onload = function () {
-    var mySwiper = new Swiper('.swiper-container', {
+    var mySwiper = new Swiper('#product-swiper', {
         // Optional parameters
         direction: 'horizontal',
         loop: true,
@@ -19,19 +19,19 @@ window.onload = function () {
         scrollbar: {
             el: '.swiper-scrollbar',
         },
-        slidesPerView: 4,
+        slidesPerView: 6,
         autoplay: {
             delay: 5000,
             disableOnInteraction: true,
             stopOnLastSlide: false,
         },
-        spaceBetween: 5,
+        spaceBetween: 2,
         centeredSlides: true,
         // Responsive breakpoints
         breakpoints: {
             // when window width is >= 320px
             320: {
-                slidesPerView: 1,
+                slidesPerView: 2,
             },
             // when window width is >= 576px
             576: {
@@ -39,15 +39,15 @@ window.onload = function () {
             },
             // when window width is >= 768px
             768: {
-                slidesPerView: 3,
+                slidesPerView: 4,
             },
             // when window width is >= 992px
             992: {
-                slidesPerView: 4,
+                slidesPerView: 6,
             },
             // when window width is >= 1440px
             1440: {
-                slidesPerView: 5,
+                slidesPerView: 7,
             }
         },
         zoom: true,

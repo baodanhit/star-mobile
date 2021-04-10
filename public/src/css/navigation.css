@@ -10,7 +10,6 @@
 
 #app {
   min-height: 100vh;
-  perspective: 1500px;
 }
 
 .page__content {

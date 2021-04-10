@@ -2,7 +2,7 @@
     {
         "title": "Điện thoại",
         "icon": "fa-mobile-alt",
-        "path": "#",
+        "path": "#!category/dien-thoai",
         "subMenu": [
             {
                 "filterName": "Hãng sản xuất",
@@ -61,108 +61,9 @@
         ]
     },
     {
-        "title": "PC để bàn",
-        "icon": "fa-desktop",
-        "path": "#",
-        "subMenu": [
-            {
-                "filterName": "",
-                "items": [
-                    {
-                        "title": "CPU",
-                        "path": "#"
-                    },
-                    {
-                        "title": "Màn hình",
-                        "path": "#"
-                    },
-                    {
-                        "title": "Chuột",
-                        "path": "#"
-                    },
-                    {
-                        "title": "Bàn phím",
-                        "path": "#"
-                    }
-                    
-                ]
-            },
-            {
-                "filterName": "Hãng sản xuất",
-                "items": [
-                    {
-                        "title": "Apple",
-                        "path": "#"
-                    },
-                    {
-                        "title": "Asus",
-                        "path": "#"
-                    },
-                    {
-                        "title": "Acer",
-                        "path": "#"
-                    },
-                    {
-                        "title": "Dell",
-                        "path": "#"
-                    },
-                    {
-                        "title": "HP",
-                        "path": "#"
-                    },
-                    {
-                        "title": "Lenovo",
-                        "path": "#"
-                    },
-                    {
-                        "title": "Microsoft",
-                        "path": "#"
-                    },
-                    {
-                        "title": "MSI",
-                        "path": "#"
-                    }
-                ]
-            },
-            {
-                "filterName": "Mức giá",
-                "items": [
-                    {
-                        "title": "Dưới 5 triệu",
-                        "path": "#"
-                    },
-                    {
-                        "title": "Từ 5 đến 10 triệu",
-                        "path": "#"
-                    },
-                    {
-                        "title": "Từ 10 đến 15 triệu",
-                        "path": "#"
-                    },
-                    {
-                        "title": "Từ 15 đến 20 triệu",
-                        "path": "#"
-                    },
-                    {
-                        "title": "Từ 20 đến 25 triệu",
-                        "path": "#"
-                    },
-                    {
-                        "title": "Từ 25 đến 30 triệu",
-                        "path": "#"
-                    },
-                    {
-                        "title": "Trên 30 triệu",
-                        "path": "#"
-                    }
-                ]
-            }
-        ]
-    },
-    {
         "title": "Laptop",
         "icon": "fa-laptop",
-        "path": "#",
+        "path": "#!category/laptop",
         "subMenu": [
             {
                 "filterName": "Hãng sản xuất",
@@ -239,7 +140,7 @@
     {
         "title": "Máy tính bảng",
         "icon": "fa-tablet-alt",
-        "path": "#",
+        "path": "#!category/may-tinh-bang",
         "subMenu": [
             {
                 "filterName": "Hãng sản xuất",
@@ -286,9 +187,54 @@
         ]
     },
     {
+        "title": "Smart watch",
+        "icon": "fa-clock",
+        "path": "#",
+        "subMenu": [
+            {
+                "filterName": "Hãng sản xuất",
+                "items": [
+                    {
+                        "title": "Apple",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Samsung",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Xiaomi",
+                        "path": "#"
+                    }
+                ]
+            },
+            {
+                "filterName": "Mức giá",
+                "items": [
+                    {
+                        "title": "Dưới 1 triệu",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Từ 1 đến 3 triệu",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Từ 3 đến 5 triệu",
+                        "path": "#"
+                    },
+                    {
+                        "title": "Trên 5 triệu",
+                        "path": "#"
+                    }
+                ]
+            }
+        ]
+    },
+    {
         "title": "Phụ kiện",
         "icon": "fa-headphones-alt",
-        "path": "#",
+        "path": "#!category/phu-kien",
         "subMenu": [
             {
                 "filterName": "Các mặt hàng phụ kiện",
