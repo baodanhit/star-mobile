@@ -1,31 +1,31 @@
 #routedContent.ng-enter {
-  transform: translateX(-500px);
+  /* transform: translateX(-500px); */
   opacity: 0;
 
-  -webkit-transition: all 0.35s cubic-bezier(1, 0.01, 0, 0.99);
-  -moz-transition: all 0.35s cubic-bezier(1, 0.01, 0, 0.99);
-  -ms-transition: all 0.35s cubic-bezier(1, 0.01, 0, 0.99);
-  -o-transition: all 0.35s cubic-bezier(1, 0.01, 0, 0.99);
-  transition: all 0.35s cubic-bezier(1, 0.01, 0, 0.99);
+  -webkit-transition: all 1s cubic-bezier(1, 0.01, 0, 0.99);
+  -moz-transition: all 1s cubic-bezier(1, 0.01, 0, 0.99);
+  -ms-transition: all 1s cubic-bezier(1, 0.01, 0, 0.99);
+  -o-transition: all 1s cubic-bezier(1, 0.01, 0, 0.99);
+  transition: all 1s cubic-bezier(1, 0.01, 0, 0.99);
 }
 
 #routedContent.ng-enter-active {
-  transform: translateX(0px);
+  /* transform: translateX(0px); */
   opacity: 1;
 }
 
 #routedContent.ng-leave {
-  transform: translateX(0);
+  /* transform: translateX(0); */
   opacity: 1;
 
-  -webkit-transition: all 0.35s cubic-bezier(1, 0.01, 0, 0.99);
-  -moz-transition: all 0.35s cubic-bezier(1, 0.01, 0, 0.99);
-  -ms-transition: all 0.35s cubic-bezier(1, 0.01, 0, 0.99);
-  -o-transition: all 0.35s cubic-bezier(1, 0.01, 0, 0.99);
-  transition: all 0.35s cubic-bezier(1, 0.01, 0, 0.99);
+  -webkit-transition: all 0.2s cubic-bezier(1, 0.01, 0, 0.99);
+  -moz-transition: all 0.2s cubic-bezier(1, 0.01, 0, 0.99);
+  -ms-transition: all 0.2s cubic-bezier(1, 0.01, 0, 0.99);
+  -o-transition: all 0.2s cubic-bezier(1, 0.01, 0, 0.99);
+  transition: all 0.2s cubic-bezier(1, 0.01, 0, 0.99);
 }
 
 #routedContent.ng-leave-active {
-  transform: translateX(500px);
+  /* transform: translateX(500px); */
   opacity: 0;
 }

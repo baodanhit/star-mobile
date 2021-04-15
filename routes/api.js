@@ -11,7 +11,7 @@ let getProductLimited = async (category, limit) => {
   let products = await Product.find({ category: category }, projection).limit(limit);
   return products
 }
-router.get('/data', async function (req, res, next) {
+router.get('/products-by-cate', async function (req, res, next) {
   let previewProducts = [];
   for (category of categories) {
     let products = await getProductLimited(category, 10);
@@ -26,9 +26,25 @@ router.get('/product/:id', async function (req, res, next) {
   let product = await Product.findOne({ _id: id });
   res.json({ product });
 });
-router.get('/category/:category/:page', (req, res, next) => {
-  let perPage = 18;
+router.get('/search', async function (req, res, next) {
+  let searchText = req.query.name;
+  let regex = new RegExp(searchText, 'i');
+  let products = await Product.find({ name: { $regex: regex } }, '_id name price images');
+  res.json({ products });
+});
+
+router.get('/category/:category/:page', async (req, res, next) => {
   let page = req.params.page || 1;
+  let limit = req.query.limit || 18;
+  let priceStr = req.query.price;
+  let brand = req.query.brand;
+  let filters = {};
+  if (brand) {
+    filters.brand = brand
+  }
+  if (priceStr) {
+    filters.price = priceStr.split('-');
+  }
   let categoryStr = req.params.category;
   let category = '';
   switch (categoryStr) {
@@ -45,22 +61,51 @@ router.get('/category/:category/:page', (req, res, next) => {
       category = 'Phụ kiện';
       break;
   }
-  let getProductPerPage = (category) => {
-    Product
-      .find({ category: category })
-      .skip((perPage * page) - perPage)
-      .limit(perPage)
-      .exec((err, products) => {
-        Product.countDocuments({ category: category }, (err, count) => {
-          if (err) return next(err);
-          res.json({
-            count,
-            products,
-            currentPage: page,
-            totalPages: Math.ceil(count / perPage)
-          });
-        });
+  let getProductPerPage = async (category) => {
+    // Product
+    //   .find(filterObj)
+    //   .skip((limit * page) - limit)
+    //   .limit(limit)
+    //   .exec((err, products) => {
+    //     Product.countDocuments(filterObj, (err, count) => {
+    //       if (err) return next(err);
+    //       res.json({
+    //         count,
+    //         products,
+    //         currentPage: page,
+    //         totalPages: Math.ceil(count / limit)
+    //       });
+    //     });
+    //   });
+    let products = []
+    let filterObj = {
+      category: category,
+    }
+    if (Object.keys(filters).length) {
+      if (filters.brand) {
+        let $nameRegex = new RegExp(filters.brand, 'i');
+        filterObj.name = { $regex: $nameRegex };
+      }
+      if (filters.price) {
+        filterObj['price.old'] = { $gte: parseInt(filters.price[0]), $lte: parseInt(filters.price[1]) }
+      }
+      products = await Product.find(filterObj)
+      console.log(filterObj)
+    }
+    else {
+      products = await Product.find({ category: category })
+        .skip((limit * page) - limit)
+        .limit(limit)
+    }
+    Product.countDocuments(filterObj, (err, count) => {
+      if (err) return next(err);
+      res.json({
+        count,
+        products,
+        currentPage: page,
+        totalPages: Math.ceil(count / limit)
       });
+    });
   }
   getProductPerPage(category);
 })

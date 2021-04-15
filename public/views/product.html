@@ -24,11 +24,11 @@
         </div>
         <div class="col-12 col-md-5 pt-3 pt-md-0 right-box product-selection">
             <div class="product-price">
-                <h5 class="price-special font-weight-bold">Giá chỉ: <span
-                        class="color-main">{{toCurrency(activePrice)}}</span></h5>
+                <h5 class="price-special font-weight-bold">Giá chỉ: <span class="color-main">{{activePrice |
+                        toCurrency}}</span></h5>
                 <span class="price-old mb-2">
                     Giá niêm yết:
-                    <del class="text-muted">{{toCurrency(product.price['old'])}}</del>
+                    <del class="text-muted">{{product.price['old'] | toCurrency}}</del>
                 </span>
             </div>
             <div class="product-option-color__wrapper py-2">
@@ -40,7 +40,7 @@
                         <div class="d-flex flex-column justify-content-center align-items-center">
                             <span class="fa fa-check"></span>
                             <span class="opt-name">{{color}}</span>
-                            <span class="opt-price text-danger font-weight-bold">{{toCurrency(price)}}</span>
+                            <span class="opt-price text-danger font-weight-bold">{{price | toCurrency}}</span>
                         </div>
                     </li>
                 </ul>

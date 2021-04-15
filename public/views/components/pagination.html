@@ -1,0 +1,36 @@
+<nav class="row mt-3 mx-0 justify-content-center">
+    <ul class="pagination">
+        <li class="page-item" ng-class="{disabled: currentPage == 1}">
+            <button class="page-link" aria-label="Previous" ng-click="newPage(currentPage-1)">
+                <span aria-hidden="true">&laquo;</span>
+            </button>
+        </li>
+        <li class="page-item" ng-if="totalPages <= 7" ng-repeat="page in [] | range: 1: totalPages"
+            ng-class="{active: page == currentPage}">
+            <button class="page-link" ng-click="newPage(page)">{{page}}</button>
+        </li>
+        <ul class="pagination" ng-if="totalPages > 7">
+            <li class="page-item" ng-class="{active: currentPage == 1}">
+                <button class="page-link" ng-click="newPage(1)">1</button>
+            </li>
+            <li class="page-item" ng-if="begin >= 3 ">
+                <button class="page-link">...</button>
+            </li>
+            <li class="page-item" ng-repeat="page in [] | range: begin: end" ng-class="{active: page == currentPage}">
+                <button class="page-link" ng-click="newPage(page)">{{page}}</button>
+            </li>
+
+            <li class="page-item" ng-if="end <= totalPages - 2 ">
+                <button class="page-link">...</button>
+            </li>
+            <li class="page-item" ng-class="{active: currentPage == totalPages}">
+                <button class="page-link" ng-click="newPage(totalPages)">{{totalPages}}</button>
+            </li>
+        </ul>
+        <li class="page-item" ng-class="{disabled: currentPage == totalPages}">
+            <button class="page-link" aria-label="Next" ng-click="newPage(currentPage+1)">
+                <span aria-hidden="true">&raquo;</span>
+            </button>
+        </li>
+    </ul>
+</nav>

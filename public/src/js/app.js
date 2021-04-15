@@ -1,10 +1,8 @@
 var app = angular.module("app-main", ['ngSanitize', 'ngRoute', 'ngAnimate']);
 
-app.controller("appCtrl", ($scope, $rootScope, $http) => {
-    $rootScope.appName = 'StarCom';
-    // data ~ window.data: response from server
-    // $rootScope.appData = Object.assign({}, window.data);
-    $http.get("/api/data")
+app.controller("appCtrl", ($scope, $rootScope, $http, $window) => {
+    $rootScope.appName = 'StarMobile';
+    $http.get("/api/products-by-cate")
         .then((res) => {
             $rootScope.appData = res.data.data;
             $scope.menu = $rootScope.appData.menu;
@@ -16,82 +14,101 @@ app.controller("appCtrl", ($scope, $rootScope, $http) => {
         })
     $rootScope.cart = [];
     $rootScope.$on("$routeChangeSuccess", function ($event, $currentRoute, $previousRoute) {
-        if ($currentRoute.loadedTemplateUrl == '/views/home.html') {
-            setTimeout(function () {
-                var mySwiper = new Swiper('.product-swiper', {
-                    // Optional parameters
-                    direction: 'horizontal',
-                    loop: true,
+        if ($currentRoute !== undefined) {
+            if ($currentRoute.loadedTemplateUrl == '/views/home.html') {
+                setTimeout(function () {
+                    var mySwiper = new Swiper('.product-swiper', {
+                        // Optional parameters
+                        direction: 'horizontal',
+                        loop: true,
 
-                    // If we need pagination
-                    pagination: {
-                        el: '.swiper-pagination',
-                    },
+                        // If we need pagination
+                        pagination: {
+                            el: '.swiper-pagination',
+                        },
 
-                    // Navigation arrows
-                    navigation: {
-                        nextEl: '.swiper-button-next',
-                        prevEl: '.swiper-button-prev',
-                    },
+                        // Navigation arrows
+                        navigation: {
+                            nextEl: '.swiper-button-next',
+                            prevEl: '.swiper-button-prev',
+                        },
 
-                    // And if we need scrollbar
-                    scrollbar: {
-                        el: '.swiper-scrollbar',
-                    },
-                    slidesPerView: 6,
-                    autoplay: {
-                        delay: 5000,
-                        disableOnInteraction: true,
-                        stopOnLastSlide: false,
-                    },
-                    spaceBetween: 2,
-                    centeredSlides: true,
-                    // Responsive breakpoints
-                    breakpoints: {
-                        // when window width is >= 320px
-                        320: {
-                            slidesPerView: 2,
+                        // And if we need scrollbar
+                        scrollbar: {
+                            el: '.swiper-scrollbar',
                         },
-                        // when window width is >= 576px
-                        576: {
-                            slidesPerView: 2,
+                        slidesPerView: 6,
+                        autoplay: {
+                            delay: 5000,
+                            disableOnInteraction: true,
+                            stopOnLastSlide: false,
                         },
-                        // when window width is >= 768px
-                        768: {
-                            slidesPerView: 4,
+                        spaceBetween: 2,
+                        centeredSlides: true,
+                        // Responsive breakpoints
+                        breakpoints: {
+                            // when window width is >= 320px
+                            320: {
+                                slidesPerView: 2,
+                            },
+                            // when window width is >= 576px
+                            576: {
+                                slidesPerView: 2,
+                            },
+                            // when window width is >= 768px
+                            768: {
+                                slidesPerView: 4,
+                            },
+                            // when window width is >= 992px
+                            992: {
+                                slidesPerView: 6,
+                            },
+                            // when window width is >= 1440px
+                            1440: {
+                                slidesPerView: 8,
+                            }
                         },
-                        // when window width is >= 992px
-                        992: {
-                            slidesPerView: 6,
-                        },
-                        // when window width is >= 1440px
-                        1440: {
-                            slidesPerView: 8,
-                        }
-                    },
-                    zoom: true,
-                    // // Disable preloading of all images
-                    // preloadImages: false,
-                    // // Enable lazy loading
-                    // lazy: {
-                    //     loadPrevNext: true,
-                    // }
-                });
-            }, 1000);
+                        zoom: true,
+                        // // Disable preloading of all images
+                        // preloadImages: false,
+                        // // Enable lazy loading
+                        // lazy: {
+                        //     loadPrevNext: true,
+                        // }
+                    });
+                }, 1000);
+            }
+            else if ($currentRoute.loadedTemplateUrl == '/views/cart.html') {
+                $('#searchBar').addClass('hiden-mobile');
+            }
+            if ($previousRoute && $previousRoute.loadedTemplateUrl == '/views/cart.html') {
+                $('#searchBar').removeClass('hiden-mobile');
+            }
         }
-        else if ($currentRoute.loadedTemplateUrl == '/views/cart.html') {
-            $('#searchBar').addClass('hiden-mobile');
-        }
-        if ($previousRoute.loadedTemplateUrl == '/views/cart.html') {
-            $('#searchBar').removeClass('hiden-mobile');
-        }
-        $("html, body").animate({ scrollTop: 0 }, "slow");
+        $("html, body").animate({ scrollTop: 0 }, 0);
     })
     $rootScope.toCurrency = (number) => convertToCurrencyString(number);
     $rootScope.toUrlString = (str) => convertViToUrl(str);
+    $scope.searchText = '';
+    $scope.searchResults = [];
+    $scope.search = () => {
+        $scope.searchResults = [];
+        if (!$scope.searchText || $scope.searchText == undefined) return
+        $http.get('/api/search?name=' + $scope.searchText).then(res => {
+            $scope.searchResults = res.data.products
+        }, err => {
+            $scope.searchResults = [];
+        })
+
+    }
+    $scope.searchResultClick = (id) => {
+        $scope.searchText = '';
+        $scope.searchResults = [];
+        $window.location.href = '#!product/' + id
+    }
 });
 
-app.config(function ($routeProvider) {
+app.config(function ($routeProvider, $locationProvider) {
     $routeProvider
         .when('/search', {
             templateUrl: "/views/search.html",
@@ -102,7 +119,11 @@ app.config(function ($routeProvider) {
         })
         .when('/cart', {
             templateUrl: "/views/cart.html",
-            controller: 'cartCrtl'
+            controller: 'cartCtrl'
+        })
+        .when('/category/:category/:page', {
+            templateUrl: "/views/products-by-category.html",
+            controller: 'categoryCtrl'
         })
         .when('/category/:category', {
             templateUrl: "/views/products-by-category.html",
@@ -110,7 +131,7 @@ app.config(function ($routeProvider) {
         })
         .when('/product/:id', {
             templateUrl: "/views/product.html",
-            controller: 'productCrtl'
+            controller: 'productCtrl'
         })
         .otherwise({
             templateUrl: "/views/home.html",
@@ -120,34 +141,53 @@ app.config(function ($routeProvider) {
 app.controller('searchCtrl', function ($scope, $rootScope) {
     $('#searchBar input').focus();
 });
-app.controller('categoryCtrl', function ($scope, $rootScope, $routeParams, $http) {
+app.controller('categoryCtrl', function ($scope, $rootScope, $window, $location, $routeParams, $http) {
     $scope.categoryStr = $routeParams.category;
+    $scope.page = $routeParams.page || 1;
     $scope.translation = {
         'dien-thoai': 'Điện thoại di động',
         'laptop': 'Máy tính xách tay',
         'may-tinh-bang': 'Máy tính bảng',
         'phu-kien': 'Phụ kiện'
+    };
+    $scope.paginationFn = () => {
+        $scope.begin = $scope.currentPage - 3;
+        $scope.end = + $scope.currentPage + 2;
+        if ($scope.begin < 2) {
+            $scope.begin = 2;
+            $scope.end = 7;
+        }
+        if ($scope.end >= $scope.totalPages) {
+            $scope.end = $scope.totalPages - 1;
+            $scope.begin = $scope.end - 5;
+        }
     }
-    $http.get(`/api/category/${$scope.categoryStr}/1`).then(res => {
+    $scope.getQueryUrl = () => {
+        $scope.qr = $location.search();
+        let res = ''
+        for (const [key, value] of Object.entries($scope.qr)) {
+            res += `${key}=${value}`
+        }
+        return res
+    }
+
+    $http.get(`/api/category/${$scope.categoryStr}/${$scope.page}?${$scope.getQueryUrl()}`).then(res => {
         $scope.count = res.data.count;
-        $scope.mobiles = res.data.products;
-        $scope.currentPage = res.data.currentPage;
-        $scope.totalPages = res.data.totalPages;
+        $scope.categoryProducts = res.data.products;
+        $scope.currentPage = + res.data.currentPage;
+        $scope.totalPages = + res.data.totalPages;
+        $scope.paginationFn();
     })
     $scope.newPage = (page) => {
         if (page > $scope.totalPages || page < 1) return;
-        $http.get(`/api/category/${$scope.category}/${page}`).then(res => {
-            $scope.mobiles = res.data.products;
-            $scope.currentPage = res.data.currentPage;
-            $scope.totalPages = res.data.totalPages;
-        })
-        $("html, body").animate({ scrollTop: 0 }, "slow");
+        $window.location.href = `#!category/${$scope.categoryStr}/${page}`;
+        $("html, body").animate({ scrollTop: 0 }, 0);
     }
 });
 app.controller('homeCtrl', function ($scope, $rootScope) {
 
 });
-app.controller('cartCrtl', function ($scope, $rootScope) {
+app.controller('cartCtrl', function ($scope, $rootScope) {
     $scope.totalProducts = $rootScope.cart.length || 0;
     $scope.totalAmount = 0;
     $scope.calcTotal = () => {
@@ -205,7 +245,7 @@ app.controller('cartItemCtrl', function ($scope, $rootScope) {
     }
 });
 
-app.controller('productCrtl', function ($scope, $rootScope, $routeParams, $route, $http) {
+app.controller('productCtrl', function ($scope, $rootScope, $routeParams, $route, $http) {
     $scope.id = $routeParams.id;
     $scope.activeColor = '';
     $http
@@ -319,14 +359,28 @@ app.filter('objLimitTo', [function () {
     };
 }]);
 app.filter('range', function () {
-    return function (input, total) {
-        total = parseInt(total);
-        for (var i = 1; i <= total; i++) {
+    return function (input, begin, end) {
+        begin = parseInt(begin);
+        end = parseInt(end);
+        for (var i = begin; i <= end; i++) {
             input.push(i);
         }
         return input;
     };
 });
+app.filter('toCurrency', function () {
+    return function (input) {
+        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(input);
+    };
+});
+
+app.filter('srcProcess', function () {
+    return function (input) {
+        if (input.startsWith('http')) return input
+        return '/src/images/products/' + input
+    };
+});
+
 // methods
 
 let convertToNumber = (str) => parseInt(str.replace(/(đ|\.)/g, ''));

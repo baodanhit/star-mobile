@@ -1,69 +1,37 @@
-$(function () {
+$(window).on('load', function () {
 
-    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-        // true for mobile device
-        var mobileNav = document.querySelectorAll('.mobile');
-        mobileNav.forEach(e => {
-            e.classList.add('d-block');
-        })
-    } else {
-        // false for not mobile device
-
-    }
-    //hide nav open btn when the nav is open, adding/removing open classes to nav and content
-    var navOpenBtn = document.querySelector('.nav-open-btn');
-    var navCloseBtn = document.querySelector('.nav__close');
-    var nav = document.querySelector('.side-nav');
-    var pageContent = document.querySelector('.page__content');
-    var navList = document.querySelector('.nav__list');
-    var menuTogglers = document.querySelectorAll('.nav__toggler');
-    var app = document.querySelector('#app');
+    var $navOpenBtn = $('.nav-open-btn');
+    var $navCloseBtn = $('.nav__close');
+    var $nav = $('.side-nav');
+    var $pageContent = $('.page__content');
 
     //open nav
-    navOpenBtn.addEventListener('click', function () {
-        navOpenBtn.classList.add('js-hidden');
+    $navOpenBtn.click(function () {
+        $navOpenBtn.addClass('js-hidden');
 
-        nav.classList.add('js-opened');
+        $nav.addClass('js-opened');
 
-        pageContent.classList.add('js-opened');
+        $pageContent.addClass('js-opened');
     });
 
     //close nav
-    navCloseBtn.addEventListener('click', function () {
-        navOpenBtn.classList.remove('js-hidden');
+    $navCloseBtn.click(function () {
+        $navOpenBtn.removeClass('js-hidden');
 
-        nav.classList.remove('js-opened');
+        $nav.removeClass('js-opened');
 
-        pageContent.classList.remove('js-opened');
+        $pageContent.removeClass('js-opened');
     });
-
-    //closing navigation if click outside it
-    app.addEventListener('click', function (e) {
-
-        var evTarget = e.target;
-
-        var isClickOnToggler = Array.from(menuTogglers).includes(evTarget);
-        if (isClickOnToggler) {
-            if (evTarget.classList.contains('toggled')) {
-                evTarget.classList.remove('toggled');
-            }
-            else {
-                evTarget.classList.add('toggled');
-            }
+    $('.nav__toggler').click(function (e) {
+        if ($(this).hasClass('toggled')) {
+            $(this).removeClass('toggled')
+            return
         }
-
-        if ((evTarget !== nav) && (nav.classList.contains('js-opened')) && (evTarget !== navOpenBtn) && (evTarget.parentNode !== navOpenBtn) && (!isClickOnToggler)) {
-
-            navOpenBtn.classList.remove('js-hidden');
-
-            nav.classList.remove('js-opened');
-
-            pageContent.classList.remove('js-opened');
-        }
-        return
-    });
+        $(this).addClass('toggled')
+        e.preventDefault();
+    })
 
     //adding default classes
-    nav.classList.add('nav--offcanvas-1');
-    pageContent.classList.add('page__content--offcanvas-1');
+    $nav.addClass('nav--offcanvas-1');
+    $pageContent.addClass('page__content--offcanvas-1');
 })

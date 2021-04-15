@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css">
+    <link rel="stylesheet" href="/src/css/bootstrap/bootstrap.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" defer></script>
+
+    <title>Login</title>
+    <style>
+        #app {
+            width: 100%;
+            min-height: 100vh;
+            background-color: #4158D0;
+            background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+        }
+
+        #main-card {
+            position: relative;
+            top: 30%;
+            box-shadow: 5px 5px 10px rgba(100, 100, 100, 0.5);
+        }
+
+        .color-main {
+            color: #ff5252;
+        }
+
+        .color-1 {
+            color: #9733EE;
+        }
+
+        button:focus,
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        input {
+            border-radius: 50px !important;
+        }
+
+        .btn-grad {
+            background-image: linear-gradient(to right, #DA22FF 0%, #9733EE 51%, #DA22FF 100%)
+        }
+
+        .btn-grad {
+            padding: 10px 40px;
+            text-align: center;
+            text-transform: uppercase;
+            transition: 0.5s;
+            background-size: 200% auto;
+            color: white;
+            box-shadow: 0 0 20px #eee;
+            border-radius: 10px;
+            display: block;
+        }
+
+        .btn-grad:hover {
+            background-position: right center;
+            /* change the direction of the change here */
+            color: #fff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 col-12 col-sm-8 mx-auto">
+                    <div class="card p-4" id="main-card">
+                        <div class="card-body p-4">
+                            <h4 class="text-center color-main mb-4">StarMobile Admin</h4>
+                            <form class="form" action="/admin/login" method="POST">
+                                <div class="form-group mb-4">
+                                    <input type="text" class="form-control color-1 p-4" name="username" id="username"
+                                        placeholder="Tên đăng nhập">
+                                </div>
+                                <div class="form-group mb-4">
+                                    <input type="password" class="form-control color-1 p-4" name="password"
+                                        id="password" placeholder="Mật khẩu">
+                                </div>
+                                <div class="my-3 text-center">
+                                    <button type="submit" class="btn btn-grad mx-auto">Đăng nhập</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -58,7 +58,6 @@ button:focus {
   display: inline-flex !important;
   justify-content: center;
   min-width: 250px;
-  width: 90%;
   margin: 0 auto;
   border-radius: 1.5em;
 }
@@ -158,6 +157,9 @@ input[type="number"] {
     position: sticky;
     bottom: 50px;
     z-index: 9;
+  }
+  #searchResults {
+    top: 120px !important;
   }
 }
 .sticky-bottom {
@@ -282,4 +284,21 @@ input[type="number"] {
 }
 #staticBackdrop {
   background: rgba(0, 0, 0, 0.5);
+}
+#searchBox {
+  max-width: 400px;
+  width: 90%;
+}
+#searchResults {
+  position: absolute;
+  top: 65px;
+  background-color: #ffffff;
+  max-width: 400px;
+  z-index: 999;
+  width: 90%;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+.fake-anchor {
+  cursor: pointer;
 }

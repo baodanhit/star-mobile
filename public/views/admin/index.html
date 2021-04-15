@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular-csp.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css">
+    <!-- <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.1/dist/bootstrap-table.min.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/dropzone.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ng-dropzone/2.0.2/ng-dropzone.min.css" />
+    <link rel="stylesheet" href="/src/css/bootstrap/bootstrap.css">
+    <link rel="stylesheet" href="/src/css/admin.css">
+    <link rel="stylesheet" href="/src/css/animate.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" defer></script>
+    <script src="/src/js/angularJS/angular.min.js" defer></script>
+    <script src="/src/js/angularJS/angular-route.min.js" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-sanitize.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-animate/1.8.2/angular-animate.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/dropzone.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ng-dropzone/2.0.2/ng-dropzone.min.js" defer></script>
+    <script src="https://cdn.tiny.cloud/1/o1hituqhhp8j5naee84m9vxb9ycmk43y141se68apgd1708r/tinymce/5/tinymce.min.js"
+        referrerpolicy="origin"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-tinymce/0.0.19/tinymce.min.js" defer></script>
+
+    <script src="/src/js/admin/bootstable.js" defer></script>
+    <script src="/src/js/admin/app.js" defer></script>
+    <script src="/src/js/admin/navigation.js" defer></script>
+    <!-- <script src="/src/js/admin/dataTable.js" defer></script> -->
+
+    <script>
+        document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] +
+            ':35729/livereload.js?snipver=1"></' + 'script>')
+    </script>
+    <title>Admin</title>
+</head>
+
+<body class="sb-nav-fixed" ng-app="myApp" ng-controller="appCtrl">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="index.html">ADMIN</a>
+        <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i
+                class="fas fa-bars"></i></button>
+        <!-- Navbar-->
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                    <a class="dropdown-item" href="/admin/logout">Logout</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+                        <div class="sb-sidenav-menu-heading">Core</div>
+                        <a class="nav-link" href="#!home">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Dashboard
+                        </a>
+                        <div class="sb-sidenav-menu-heading">Database</div>
+                        <a class="nav-link" href="#!products">
+                            <div class="sb-nav-link-icon"><i class="fas fa-desktop"></i></div>
+                            Sản phẩm
+                        </a>
+                        <!-- <a class="nav-link" href="#">
+                            <div class="sb-nav-link-icon"><i class="fas fa-dice-d6"></i></div>
+                            Đơn hàng
+                        </a>
+                        <a class="nav-link" href="#">
+                            <div class="sb-nav-link-icon"><i class="fas fa-server"></i></div>
+                            Kho hàng
+                        </a> -->
+                        <!-- <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts"
+                            aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                            Layouts
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
+                            data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="layout-static.html">Static Navigation</a>
+                                <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
+                            </nav>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="sb-sidenav-footer">
+                    <div class="small">Logged in as:</div>
+                    Admin
+                </div>
+            </nav>
+        </div>
+        <!-- !!! Main content -->
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid p-1">
+                    <ol class="breadcrumb mb-4">
+                        <li class="breadcrumb-item active">{{activePage}}</li>
+                    </ol>
+                    <div ng-view id="routedContent"></div>
+                </div>
+            </main>
+            <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid">
+                    <div class="small">
+                        <div class="text-muted text-center">Copyright &copy; StarMobile 2021</div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+</body>
+
+</html>

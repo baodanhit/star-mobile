@@ -1,0 +1,137 @@
+<div class="px-4">
+    <div class="position-fixed p-3"
+        style="min-width: 270px;z-index: 5; left: 50%; top: 50px;transform: translateX(-50%);">
+        <div id="liveToast" class="toast hide rounded-lg" role="alert" aria-live="assertive" aria-atomic="true"
+            data-delay="3000">
+            <div class="toast-header text-white" ng-class="{'bg-success': status == 200, 'bg-danger': status != 200}">
+                <i class="fa fa-check-circle rounded mr-2" aria-hidden="true"></i>
+                <strong class="mr-auto">{{message}}</strong>
+                <button type="button" class="text-white ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body bg-success text-white text-center" ng-show="status == 200">
+                <a ng-href="#!product/{{id}}" class="text-light">
+                    <span class="">Xem sản phẩm</span>
+                    <i class="fa fa-arrow-right ml-3" aria-hidden="true"></i></a>
+            </div>
+        </div>
+    </div>
+    <form action="#" name="editForm" method="POST" autocomplete="off" spellcheck="false" novalidate>
+        <div class="form-group">
+            <label for="name">Tên sản phẩm</label>
+            <input type="text" class="form-control" name="name" id="name" ng-model="name" required>
+        </div>
+        <div class="row">
+            <div class="form-group col">
+                <label for="category">Danh mục</label>
+                <select class="form-control no-shadow" name="category" id="category" ng-model="category" required>
+                    <option>Điện thoại</option>
+                    <option>Laptop</option>
+                    <option>Máy tính bảng</option>
+                    <option>Phụ kiện</option>
+                </select>
+            </div>
+            <div class="form-group col">
+                <label for="type">Phân loại</label>
+                <select class="form-control" name="type" id="type" ng-model="type" ng-disabled="category!='Phụ kiện'">
+                    <option></option>
+                    <option>Tai nghe</option>
+                    <option>Chuột - bàn phím</option>
+                    <option>Loa</option>
+                    <option>Sạc dự phòng</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col">
+                <label for="oldPrice">Giá gốc</label>
+                <div class="input-group">
+                    <input type="number" name="oldPrice" id="oldPrice" class="form-control" ng-model="oldPrice"
+                        required>
+                    <div class="input-group-append">
+                        <div class="input-group-text">VNĐ</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col">
+                <label for="specialPrice">Giá khuyến mãi</label>
+
+                <div class="input-group">
+                    <input type="number" name="specialPrice" id="specialPrice" class="form-control"
+                        ng-model="specialPrice">
+                    <div class="input-group-append">
+                        <div class="input-group-text">VNĐ</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="color">Màu sắc</label>
+            <div id="color">
+                <div class="row mb-1 px-4 color-input-group" ng-repeat="(color, price) in product.colors">
+                    <input type="text" class="form-control color-input-key col mr-2" name="color-0" id="color-{{color}}"
+                        placeholder="Màu" ng-value="color" required>
+                    <input type="number" class="form-control color-input-value col" name="price-0" id="price-{{color}}"
+                        placeholder="Giá" ng-value="price" required>
+                    <button type="button" class="btn btn-light" onclick="removeRow(this)" tabindex="-1">
+                        <i class="fas fa-window-close"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="px-2 mt-2">
+                <button class="btn btn-light" type="button" ng-click="addRow('color')">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="detail">Thông tin chi tiết</label>
+            <div id="detail">
+                <div class="row mb-1 px-4 detail-input-group" ng-repeat="(key, value) in product.detailInfo">
+                    <input type="text" class="form-control detail-input-key col mr-2" placeholder="Cấu hình"
+                        ng-value="key" required>
+                    <input type="text" class="form-control detail-input-value col" placeholder="Mô tả" ng-value="value"
+                        required>
+                    <button type="button" class="btn btn-light" onclick="removeRow(this)" tabindex="-1">
+                        <i class="fas fa-window-close"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="px-2 mt-2">
+                <button class="btn btn-light" type="button" ng-click="addRow('detail')" tabindex="-1">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="preview">Bài viết đánh giá</label>
+            <textarea class="form-control" name="preview" id="editPreview" ui-tinymce="tinymceOptions" rows="5"
+                ng-model="preview"></textarea>
+        </div>
+    </form>
+    <div class="form-group">
+        <label for="images">Hình ảnh ({{images.length}})</label>
+        <div class="d-flex flex-wrap justify-content-start align-items-center">
+            <div class="img-wrapper m-2 position-relative" style="width: 120px"
+                ng-repeat="img in images track by $index">
+                <button class="btn btn-sm btn-light position-absolute" style="top: 0;right: 0"
+                    ng-click="removeImg($index)">
+                    <i class="fa fa-window-close" aria-hidden="true"></i>
+                </button>
+                <img src="{{img}}" alt="img" class="w-100">
+            </div>
+        </div>
+        <form method="POST" id="images" class="dropzone" name="images" options="dzOptions" callbacks="dzCallbacks"
+            methods="dzMethods" ng-dropzone>
+            <div class="fallback">
+                <input name="file" type="file" multiple />
+            </div>
+        </form>
+
+    </div>
+    <div>
+        <button class="btn btn-light" ng-click="reset()">Reset</button>
+        <button class="btn btn-success" ng-disabled="editForm.$invalid" ng-click="save()">Lưu</button>
+    </div>
+</div>

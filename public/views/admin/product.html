@@ -1,0 +1,95 @@
+<div class="px-4">
+    <div class="position-fixed p-3"
+        style="min-width: 270px;z-index: 5; left: 50%; top: 50px;transform: translateX(-50%);">
+        <div id="liveToast" class="toast hide rounded-lg" role="alert" aria-live="assertive" aria-atomic="true"
+            data-delay="3000">
+            <div class="toast-header text-white" ng-class="{'bg-success': status == 200, 'bg-danger': status != 200}">
+                <i class="fa fa-check-circle rounded mr-2" aria-hidden="true"></i>
+                <strong class="mr-auto">{{message}}</strong>
+                <button type="button" class="text-white ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row py-2">
+        <div class="col-12 text-right">
+            <a role="button" class="btn btn-danger" ng-href="#!edit/{{product._id}}">Chỉnh
+                sửa</a>
+            <button role="button" class="btn btn-dark" ng-click="delete()">Xóa</button>
+        </div>
+    </div>
+    <div class="row border-top mb-3">
+        <div class="col-2 border-right">Tên sản phẩm</div>
+        <div class="col-10">{{name}}</div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-2 border-right">Danh mục</div>
+        <div class="col-10">{{category}}</div>
+    </div>
+    <div class="row mb-3" ng-show="type">
+        <div class="col-2 border-right">Phân loại</div>
+        <div class="col-10">{{type}}</div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-2 border-right">Giá Niêm yết: </div>
+        <div class="col-10">
+            <p>{{price.old | toCurrency}}</p>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-2 border-right">Giá Khuyến mãi: </div>
+        <div class="col-10">
+            <p>{{price.special | toCurrency}}</p>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-2 border-right">Màu sắc</div>
+        <div class="col-10">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Màu sắc</th>
+                        <th>Giá bán</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="(key, value) in colors">
+                        <td>{{key}}</td>
+                        <td>{{value | toCurrency}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-2 border-right">Cấu hình chi tiết</div>
+        <div class="col-10">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Cấu hình</th>
+                        <th>Chi tiết</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="(key, value) in detailInfo">
+                        <td>{{key}}</td>
+                        <td>{{value}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-2 border-right">Hình ảnh ({{images.length}})</div>
+        <div class="col-10">
+            <img ng-repeat="img in images" src="{{img | srcProcess}}" width="120" alt="img">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-2 border-right">Bài viết</div>
+        <div class="col-10" ng-bind-html="preview"></div>
+    </div>
+
+</div>

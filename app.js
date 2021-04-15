@@ -2,9 +2,12 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
 var dbConnect = require('./database/connect');
 var indexRouter = require('./routes/index');
 var apiRouter = require('./routes/api');
+var adminRouter = require('./routes/admin');
 const dotenv = require('dotenv');
 const env = require('@ltv/env');
 var app = express();
@@ -47,6 +50,8 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({ secret: 'secret', store: MongoStore.create({ mongoUrl: 'mongodb://localhost:27017/cellphones' }) }));
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 // set template engine and views path
@@ -57,6 +62,7 @@ app.set('view engine', 'html') // register the template engine
 // routers
 app.use('/', indexRouter);
 app.use('/api', apiRouter);
+app.use('/admin', adminRouter);
 
 // not found
 app.use((req, res) => {
