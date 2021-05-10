@@ -50,7 +50,9 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(session({ secret: 'secret', store: MongoStore.create({ mongoUrl: 'mongodb://localhost:27017/cellphones' }) }));
+const dbName = env('DB_NAME', 'star-mobile');
+const dbString = env('DB_STRING', 'mongodb+srv://star-moble-21:4IrBISqlxJwXIL68@cluster0.wak6z.mongodb.net/');
+app.use(session({ secret: 'secret', store: MongoStore.create({ mongoUrl: dbString + dbName }) }));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
