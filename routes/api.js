@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const menu = require('../database/menu.json');
 const Product = require('../database/models/product');
+const Order = require('../database/models/order');
 const categories = ['Điện thoại', 'Laptop', 'Máy tính bảng', 'Phụ kiện']
 let getProductLimited = async (category, limit) => {
   const projection = {
@@ -62,21 +63,6 @@ router.get('/category/:category/:page', async (req, res, next) => {
       break;
   }
   let getProductPerPage = async (category) => {
-    // Product
-    //   .find(filterObj)
-    //   .skip((limit * page) - limit)
-    //   .limit(limit)
-    //   .exec((err, products) => {
-    //     Product.countDocuments(filterObj, (err, count) => {
-    //       if (err) return next(err);
-    //       res.json({
-    //         count,
-    //         products,
-    //         currentPage: page,
-    //         totalPages: Math.ceil(count / limit)
-    //       });
-    //     });
-    //   });
     let products = []
     let filterObj = {
       category: category,
@@ -109,4 +95,22 @@ router.get('/category/:category/:page', async (req, res, next) => {
   }
   getProductPerPage(category);
 })
+router.post('/order', async function (req, res, next) {
+  let data = req.body;
+  if (Object.keys(data).length != 0) {
+    var newOrder = new Order(data);
+    newOrder.save(function (err, re) {
+      if (err) {
+        console.log(err);
+        // return res.status(406);
+      }
+      // saved!
+      let id = re._id;
+      return res.status(200).json({ id: id }).end();
+    });
+    return
+  }
+  return res.status(406).end();
+
+});
 module.exports = router;

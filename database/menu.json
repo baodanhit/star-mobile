@@ -70,35 +70,35 @@
                 "items": [
                     {
                         "title": "Apple",
-                        "path": "#"
+                        "path": "brand=mac"
                     },
                     {
                         "title": "Asus",
-                        "path": "#"
+                        "path": "brand=asus"
                     },
                     {
                         "title": "Acer",
-                        "path": "#"
+                        "path": "brand=acer"
                     },
                     {
                         "title": "Dell",
-                        "path": "#"
+                        "path": "brand=dell"
                     },
                     {
                         "title": "HP",
-                        "path": "#"
+                        "path": "brand=hp"
                     },
                     {
                         "title": "Lenovo",
-                        "path": "#"
+                        "path": "brand=lenovo"
                     },
                     {
                         "title": "Microsoft",
-                        "path": "#"
+                        "path": "brand=microsoft"
                     },
                     {
                         "title": "MSI",
-                        "path": "#"
+                        "path": "brand=msi"
                     }
                 ]
             },
@@ -107,31 +107,31 @@
                 "items": [
                     {
                         "title": "Dưới 5 triệu",
-                        "path": "#"
+                        "path": "price=0-5000000"
                     },
                     {
                         "title": "Từ 5 đến 10 triệu",
-                        "path": "#"
+                        "path": "price=5000000-10000000"
                     },
                     {
                         "title": "Từ 10 đến 15 triệu",
-                        "path": "#"
+                        "path": "price=10000000-15000000"
                     },
                     {
                         "title": "Từ 15 đến 20 triệu",
-                        "path": "#"
+                        "path": "price=15000000-20000000"
                     },
                     {
                         "title": "Từ 20 đến 25 triệu",
-                        "path": "#"
+                        "path": "price=20000000-25000000"
                     },
                     {
                         "title": "Từ 25 đến 30 triệu",
-                        "path": "#"
+                        "path": "price=25000000-30000000"
                     },
                     {
                         "title": "Trên 30 triệu",
-                        "path": "#"
+                        "path": "price=30000000-1000000000"
                     }
                 ]
             }
@@ -147,19 +147,19 @@
                 "items": [
                     {
                         "title": "Apple",
-                        "path": "#"
+                        "path": "brand=ipad"
                     },
                     {
                         "title": "Samsung",
-                        "path": "#"
+                        "path": "brand=samsung"
                     },
                     {
                         "title": "Lenovo",
-                        "path": "#"
+                        "path": "brand=lenovo"
                     },
                     {
                         "title": "Huawei",
-                        "path": "#"
+                        "path": "brand=huawei"
                     }
                 ]
             },
@@ -168,19 +168,19 @@
                 "items": [
                     {
                         "title": "Dưới 2 triệu",
-                        "path": "#"
+                        "path": "price=0-2000000"
                     },
                     {
                         "title": "Từ 2 đến 5 triệu",
-                        "path": "#"
+                        "path": "price=2000000-5000000"
                     },
                     {
                         "title": "Từ 5 đến 8 triệu",
-                        "path": "#"
+                        "path": "price=5000000-8000000"
                     },
                     {
                         "title": "Trên 8 triệu",
-                        "path": "#"
+                        "path": "price=8000000-100000000"
                     }
                 ]
             }
@@ -196,15 +196,15 @@
                 "items": [
                     {
                         "title": "Chuột",
-                        "path": "#"
+                        "path": ""
                     },
                     {
                         "title": "Tai nghe",
-                        "path": "#"
+                        "path": ""
                     },
                     {
                         "title": "Bàn phím",
-                        "path": "#"
+                        "path": ""
                     }
                 ]
             }

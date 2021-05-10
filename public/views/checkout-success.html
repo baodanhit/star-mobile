@@ -1,0 +1,54 @@
+<!-- ! cart -->
+<section class="container p-3 p-md-0 m-0 py-3 " id="">
+    <div class="section-title m-0 mt-2 p-2">
+        <a name="btn-cart" id="btn-cart" class="btn btn-dark my-3" href="#!home" role="button">
+            <i class="fa fa-arrow-circle-left ml-2"></i>
+            Về trang chủ
+        </a>
+        <h5 class="text-center">Đặt hàng thành công !</h5>
+    </div>
+    <div class="section-content">
+        <div class="row">
+            <div class="col-md-6 col-12 mx-auto">
+                <div class="card">
+                    <h6 class="text-center p-3">Thông tin hóa đơn</h6>
+                    <div class="card-body">
+                        <p>MSHD: {{id | uppercase}}</p>
+                        <p>Họ tên khách hàng: <span class="font-weight-bold">{{customerInfo.name}}</span></p>
+                        <p>Số điện thoại: <span class="font-weight-bold">{{customerInfo.phone}}</span></p>
+                        <p>Địa chỉ: <span>{{customerInfo.address}}</span></p>
+                        <p>Thành tiền: <span class="font-weight-bold">{{totalAmount | toCurrency}}</span></p>
+                        <div>
+                            <p>Danh sách sản phẩm:</p>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <th>STT</th>
+                                    <th>Tên SP</th>
+                                    <th>Số lượng</th>
+                                    <th>Thành tiền</th>
+                                </thead>
+                                <tbody>
+                                    <tr ng-controller="cartItemCtrl" ng-repeat="item in cart track by $index">
+                                        <td>{{$index+1}}</td>
+                                        <td>
+                                            <h6>{{item.name}} </h6>
+                                            <p>{{item.price | toCurrency}}</p>
+                                        </td>
+                                        <td>{{item.quantity}}</td>
+                                        <td>{{item.amount | toCurrency}}</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot class="font-weight-bold">
+                                    <td colspan="2">Tổng</td>
+                                    <td>{{totalProducts}}</td>
+                                    <td>{{totalAmount | toCurrency}}</td>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end cart -->

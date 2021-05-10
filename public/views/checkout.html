@@ -3,9 +3,70 @@
     <div class="section-title row m-0 mt-2 p-2">
         <h5>Thanh toán</h5>
     </div>
+    <a name="btn-cart" id="btn-cart" class="btn btn-dark my-3" href="#!cart" role="button">
+        <i class="fa fa-arrow-circle-left ml-2"></i>
+        Trở lại giỏ hàng
+    </a>
     <div class="section-content">
         <div class="row">
-
+            <div class="col-md-6 col-12">
+                <p>
+                    Nhập đầy đủ thông tin bên dưới để tiếp tục
+                </p>
+                <form action="#" name="customerInfo">
+                    <div class="form-group">
+                        <label for="name">Họ và tên</label>
+                        <input type="text" class="form-control" name="name" id="name" ng-model="customerName"
+                            ng-minlength="5" required>
+                        <span class="text-danger"
+                            ng-show="customerInfo.name.$dirty && customerInfo.name.$error.required">
+                            Vui lòng điền vào ô này
+                        </span>
+                        <span class="text-danger"
+                            ng-show="customerInfo.name.$dirty && customerInfo.name.$error.minlength">
+                            Tên quá ngắn
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Số điện thoại</label>
+                        <input type="number" class="form-control" name="phone" id="phone" ng-model="customerPhone"
+                            ng-minlength="10" ng-maxlength="11" ng-pattern="/^[0-9]*$/" required>
+                        <span class="text-danger"
+                            ng-show="customerInfo.phone.$dirty && customerInfo.phone.$error.required">
+                            Vui lòng điền vào ô này
+                        </span>
+                        <span class="text-danger"
+                            ng-show="customerInfo.phone.$dirty && (customerInfo.phone.$error.tel || customerInfo.phone.$error.minlength || customerInfo.phone.$error.maxlength)">
+                            Vui lòng nhập số điện thoại
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Địa chỉ</label>
+                        <input type="text" class="form-control" name="address" id="customer-address"
+                            ng-model="customerAddress" ng-minlength="10" required>
+                        <span class="text-danger"
+                            ng-show="customerInfo.address.$dirty && customerInfo.address.$error.required">
+                            Vui lòng điền vào ô này
+                        </span>
+                        <span class="text-danger"
+                            ng-show="customerInfo.address.$dirty && customerInfo.address.$error.minlength">
+                            Địa chỉ quá ngắn
+                        </span>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-4 offset-md-2 col-12">
+                <div class="font-weight-bold">
+                    {{calcTotal()}}
+                    <p>Tổng sản phẩm: {{ totalProducts }}</p>
+                    <p>Thành tiền: <span class="text-danger">{{ totalAmount | toCurrency }}</span></p>
+                </div>
+                <button name="btn-checkout-confirm" id="btn-checkout-confirm" class="btn btn-danger"
+                    ng-disabled="customerInfo.$invalid" role="button" ng-click="leave()">
+                    Xác nhận đặt hàng
+                    <i class="fa fa-arrow-circle-right ml-2"></i>
+                </button>
+            </div>
         </div>
     </div>
 </section>

@@ -22,6 +22,22 @@ app.config(function ($routeProvider, $locationProvider) {
             templateUrl: "/views/admin/products.html",
             controller: 'productsCtrl'
         })
+        .when('/orders', {
+            templateUrl: "/views/admin/orders.html",
+            controller: 'ordersCtrl'
+        })
+        .when('/orders/:page', {
+            templateUrl: "/views/admin/orders.html",
+            controller: 'ordersCtrl'
+        })
+        .when('/order/:id', {
+            templateUrl: "/views/admin/order.html",
+            controller: 'orderCtrl'
+        })
+        .when('/edit-order/:id', {
+            templateUrl: "/views/admin/edit-order.html",
+            controller: 'editOrderCtrl'
+        })
         .otherwise({
             templateUrl: "/views/admin/home.html",
             controller: 'homeCtrl'
@@ -68,7 +84,7 @@ app.controller("homeCtrl", function ($scope, $rootScope, $location, $http) {
     $rootScope.activePage = 'Home';
 });
 app.controller("productsCtrl", function ($scope, $rootScope, $window, $routeParams, $http) {
-    $rootScope.activePage = 'Products';
+    $rootScope.activePage = 'Sản phẩm';
     $(function () {
         $("html, body").animate({ scrollTop: 0 }, 0);
     });
@@ -110,7 +126,60 @@ app.controller("productsCtrl", function ($scope, $rootScope, $window, $routePara
             },
             onDelete: function (id) {
                 $http.delete('/admin/product/' + id).then(res => {
+                    $scope.count -= 1;
+                })
+            }
+        });
+        $('#btnEditable').hide();
+        $('#btnDoneEdit').show();
+    }
+    $scope.done = () => {
+        $('#dataTable').removeEditable();
+        $('#btnEditable').show();
+        $('#btnDoneEdit').hide();
+    }
 
+})
+app.controller("ordersCtrl", function ($scope, $rootScope, $window, $routeParams, $http) {
+    $rootScope.activePage = 'Đơn hàng';
+    $(function () {
+        $("html, body").animate({ scrollTop: 0 }, 0);
+    });
+    $scope.currentPage = $routeParams.page || 1;
+    $scope.paginationFn = () => {
+        $scope.begin = $scope.currentPage - 3;
+        $scope.end = + $scope.currentPage + 3;
+        if ($scope.begin < 2) {
+            $scope.begin = 2;
+            $scope.end = 7;
+        }
+        if ($scope.end >= $scope.totalPages) {
+            $scope.end = $scope.totalPages - 1;
+            $scope.begin = $scope.end - 5;
+        }
+    }
+    $http.get('/admin/orders/' + $scope.currentPage).then(res => {
+        $scope.count = res.data.count;
+        $scope.orders = res.data.orders;
+        $scope.currentPage = + res.data.currentPage;
+        $scope.totalPages = + res.data.totalPages;
+        $scope.paginationFn();
+    })
+    $scope.newPage = (page) => {
+        if (page > $scope.totalPages || page < 1) return;
+        $window.location.href = '#!orders/' + page;
+    }
+    $scope.editable = () => {
+        $('#dataTable').removeEditable();
+        $('#dataTable').setEditable({
+            $doneButton: $('button[name="btnDone"]'),
+            newPageEdit: true,
+            editNewPage: function (id = -1) {
+                window.location = "#!/edit-order/" + id;
+            },
+            onDelete: function (id) {
+                $http.delete('/admin/order/' + id).then(res => {
+                    $scope.count -= 1;
                 })
             }
         });
@@ -125,7 +194,7 @@ app.controller("productsCtrl", function ($scope, $rootScope, $window, $routePara
 
 })
 app.controller("editCtrl", function ($scope, $rootScope, $window, $route, $routeParams, $http) {
-    $rootScope.activePage = 'Edit';
+    $rootScope.activePage = 'Sửa sản phẩm';
     Dropzone.autoDiscover = false;
     $scope.product = {};
     $scope.id = $routeParams.id;
@@ -216,6 +285,44 @@ app.controller("editCtrl", function ($scope, $rootScope, $window, $route, $route
         content_style: 'body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; font-size:14px }'
     };
 
+});
+app.controller("editOrderCtrl", function ($scope, $rootScope, $window, $route, $routeParams, $http) {
+    $rootScope.activePage = 'Sửa đơn hàng';
+    $scope.id = $routeParams.id;
+    $http.get('/admin/order/' + $scope.id).then(res => {
+        $scope.order = res.data.order;
+        $scope.name = '';
+        $scope.phone = '';
+        $scope.address = '';
+        $scope.status = '';
+
+    }, err => {
+        return $window.location.href = '#!orders'
+    })
+
+    $scope.save = () => {
+        let data = {
+            customer: {
+                name: $scope.name || $scope.order.customer.name,
+                phone: $scope.phone.toString().padStart(10, '0') || $scope.order.customer.phone,
+                address: $scope.address || $scope.order.customer.address,
+            },
+            // status: $scope.status
+        }
+        $http.put('/admin/order/' + $scope.id, JSON.stringify(data)).then(function (res) {
+            $scope.status = res.status;
+            if ($scope.status == 200) {
+                $scope.message = 'Đã sửa thành công';
+            }
+            else {
+                $scope.message = 'Đã xảy ra lỗi';
+            }
+            $('#liveToast').toast('show');
+        })
+    }
+    $scope.reset = () => {
+        $route.reload();
+    }
 });
 app.controller("newCtrl", function ($scope, $rootScope, $route, $http) {
     $rootScope.activePage = 'New Product';
@@ -319,6 +426,26 @@ app.controller("productCtrl", function ($scope, $rootScope, $routeParams, $windo
             if ($scope.status == 200) {
                 $scope.message = 'Đã xóa thành công';
                 $window.location.href = '#!products'
+            }
+            else {
+                $scope.message = 'Đã xảy ra lỗi';
+            }
+            $('#liveToast').toast('show');
+        })
+    }
+});
+app.controller("orderCtrl", function ($scope, $rootScope, $routeParams, $window, $http) {
+    $rootScope.activePage = 'Đơn hàng';
+    $scope.id = $routeParams.id;
+    $http.get('/admin/order/' + $scope.id).then(res => {
+        $scope.order = res.data.order;
+    })
+    $scope.delete = () => {
+        $http.delete('/admin/order/' + $scope.id).then(res => {
+            $scope.status = res.status;
+            if ($scope.status == 200) {
+                $scope.message = 'Đã xóa thành công';
+                $window.location.href = '#!orders';
             }
             else {
                 $scope.message = 'Đã xảy ra lỗi';

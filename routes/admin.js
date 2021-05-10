@@ -3,6 +3,7 @@ const multer = require('multer');
 const bcrypt = require('bcrypt');
 const router = express.Router();
 var Product = require('../database/models/product');
+var Order = require('../database/models/order');
 var User = require('../database/models/user');
 const session = require('express-session');
 
@@ -66,7 +67,6 @@ router.get('/products/:page', async function (req, res, next) {
         });
       });
     });
-
 });
 router.get('/product/:id', async function (req, res, next) {
   let id = req.params.id;
@@ -125,5 +125,52 @@ router.delete('/product/:id', async function (req, res, next) {
   }
   res.status(200).end();
 });
-
+router.get('/orders/:page', async function (req, res, next) {
+  let page = req.params.page || 1;
+  let limit = 20;
+  Order
+    .find({})
+    .skip((limit * page) - limit)
+    .limit(limit)
+    .exec((err, orders) => {
+      if (err) return console.log(err);
+      Order.countDocuments({}, (err, count) => {
+        if (err) return next(err);
+        res.json({
+          count,
+          orders,
+          currentPage: page,
+          totalPages: Math.ceil(count / limit)
+        });
+      });
+    });
+});
+router.get('/order/:id', async function (req, res, next) {
+  let id = req.params.id;
+  if (id) {
+    let order = await Order.findOne({ _id: id });
+    if (!order) return res.status(404).end();
+    return res.status(200).json({ order });
+  }
+  res.status(404).end()
+});
+router.delete('/order/:id', async function (req, res, next) {
+  let id = req.params.id;
+  const re = await Order.deleteOne({ _id: id });
+  if (re.deletedCount == 0) {
+    return res.status(406).end();
+  }
+  res.status(200).end();
+});
+router.put('/order/:id', async function (req, res, next) {
+  let id = req.params.id;
+  let data = req.body;
+  Order.findOneAndUpdate({ _id: id }, data, function (err, doc) {
+    if (err) {
+      console.log(err);
+      return res.status(406).end();
+    }
+    return res.status(200).end();
+  });
+});
 module.exports = router;

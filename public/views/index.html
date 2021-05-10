@@ -26,7 +26,7 @@
     document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] +
       ':35729/livereload.js?snipver=1"></' + 'script>')
   </script>
-  <title>Express - AngularJS</title>
+  <title>StarMobile</title>
 
 </head>
 
@@ -37,7 +37,7 @@
   <div id="app" ng-app="app-main" ng-controller="appCtrl">
     <!-- mobile navigation -->
     <!-- ! left slide nav -->
-    <nav class="nav side-nav bg-white" id="side-nav">
+    <nav class="nav side-nav bg-white d-md-none" id="side-nav">
       <a class="side-nav-brand p-2 rounded-pill bg-main color-1" href="#!home">{{appName}}</a>
       <!--close button-->
       <div class="nav__close"></div>
@@ -76,12 +76,6 @@
               </div>
             </div>
           </div>
-        </li>
-        <li class="nav__item">
-          <a class="nav__link" href="#!hot-sale">
-            <i class="fas fa-gift mr-1"></i>
-            Khuyến Mãi Hot
-          </a>
         </li>
         <li class="nav__item">
           <a class="nav__link" href="#!cart">
@@ -129,10 +123,7 @@
         </div>
         <div
           class="d-flex justify-content-between align-items-center  rounded-pill bg-color-1 color-main neumorphism-sm hiden-mobile">
-          <a class="nav-link mr-2 hover-main" href="#!hot-sale">
-            <i class="fas fa-gift icon-lg"></i>
-          </a>
-          <a class="nav-link hover-main" href="#!cart">
+          <a class="nav-link hover-main px-4" href="#!cart">
             <i class="fas fa-shopping-bag icon-lg"></i>
           </a>
         </div>

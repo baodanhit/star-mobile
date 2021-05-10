@@ -1,0 +1,79 @@
+<div class="px-4">
+    <div class="position-fixed p-3"
+        style="min-width: 270px;z-index: 5; left: 50%; top: 50px;transform: translateX(-50%);">
+        <div id="liveToast" class="toast hide rounded-lg" role="alert" aria-live="assertive" aria-atomic="true"
+            data-delay="3000">
+            <div class="toast-header text-white" ng-class="{'bg-success': status == 200, 'bg-danger': status != 200}">
+                <i class="fa fa-check-circle rounded mr-2" aria-hidden="true"></i>
+                <strong class="mr-auto">{{message}}</strong>
+                <button type="button" class="text-white ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row py-2">
+        <div class="col-12 text-right">
+            <a role="button" class="btn btn-danger" ng-href="#!edit-order/{{order._id}}">Chỉnh
+                sửa</a>
+            <button role="button" class="btn btn-dark" ng-click="delete()">Xóa</button>
+        </div>
+    </div>
+    <div class="row border-top mb-3">
+        <div class="col-2 border-right">Mã đơn hàng</div>
+        <div class="col-10">{{order._id | uppercase}}</div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-2 border-right">Thời gian tạo</div>
+        <div class="col-10">{{order.date | date: 'hh:mm:ss dd/MM/yyyy'}}</div>
+    </div>
+    <div class="row mb-3" ng-show="type">
+        <div class="col-2 border-right">Tổng số lượng</div>
+        <div class="col-10">{{order.total}}</div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-2 border-right">Thành tiền</div>
+        <div class="col-10">
+            <p>{{order.amount | toCurrency}}</p>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-2 border-right">Thông tin khách hàng</div>
+        <div class="col-10">
+            <p>Họ và tên: {{order.customer.name | uppercase}}</p>
+            <p>Điện thoại: {{order.customer.phone}}</p>
+            <p>Địa chỉ: {{order.customer.address}}</p>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-2 border-right">Danh sách sản phẩm</div>
+        <div class="col-10">
+            <table class="table table-bordered">
+                <thead>
+                    <th>STT</th>
+                    <th>Tên SP</th>
+                    <th>Số lượng</th>
+                    <th>Thành tiền</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in order.products track by $index">
+                        <td>{{$index+1}}</td>
+                        <td>
+                            <h6>{{item.name}} </h6>
+                            <p>{{item.price | toCurrency}}</p>
+                        </td>
+                        <td>{{item.quantity}}</td>
+                        <td>{{item.amount | toCurrency}}</td>
+                    </tr>
+                </tbody>
+                <tfoot class="font-weight-bold">
+                    <td colspan="2">Tổng</td>
+                    <td>{{order.total}}</td>
+                    <td>{{order.amount | toCurrency}}</td>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+
+</div>

@@ -69,12 +69,6 @@ app.controller("appCtrl", ($scope, $rootScope, $http, $window) => {
                             }
                         },
                         zoom: true,
-                        // // Disable preloading of all images
-                        // preloadImages: false,
-                        // // Enable lazy loading
-                        // lazy: {
-                        //     loadPrevNext: true,
-                        // }
                     });
                 }, 1000);
             }
@@ -106,6 +100,18 @@ app.controller("appCtrl", ($scope, $rootScope, $http, $window) => {
         $scope.searchResults = [];
         $window.location.href = '#!product/' + id
     }
+    $rootScope.calcTotal = () => {
+        $rootScope.totalProducts = 0;
+        $rootScope.totalAmount = 0;
+        $rootScope.cart.forEach(item => {
+            $rootScope.totalProducts += item.quantity;
+            $rootScope.totalAmount += item.amount;
+        })
+        return
+    };
+    $scope.customerName = '';
+    $scope.customerPhone = '';
+    $scope.customerAddress = '';
 });
 
 app.config(function ($routeProvider, $locationProvider) {
@@ -120,6 +126,14 @@ app.config(function ($routeProvider, $locationProvider) {
         .when('/cart', {
             templateUrl: "/views/cart.html",
             controller: 'cartCtrl'
+        })
+        .when('/checkout', {
+            templateUrl: "/views/checkout.html",
+            controller: 'checkoutCtrl'
+        })
+        .when('/checkout-success', {
+            templateUrl: "/views/checkout-success.html",
+            controller: 'checkoutSuccessCtrl'
         })
         .when('/category/:category/:page', {
             templateUrl: "/views/products-by-category.html",
@@ -188,17 +202,11 @@ app.controller('homeCtrl', function ($scope, $rootScope) {
 
 });
 app.controller('cartCtrl', function ($scope, $rootScope) {
-    $scope.totalProducts = $rootScope.cart.length || 0;
-    $scope.totalAmount = 0;
-    $scope.calcTotal = () => {
-        $scope.totalProducts = 0;
-        $scope.totalAmount = 0;
-        $rootScope.cart.forEach(item => {
-            $scope.totalProducts += item.quantity;
-            $scope.totalAmount += item.amount;
-        })
-        return
-    };
+    if (!$rootScope.cart || $rootScope.cart.length == 0) {
+        $rootScope.cart = JSON.parse(sessionStorage.getItem('cart'));
+    }
+    $rootScope.totalProducts = 0;
+    $rootScope.totalAmount = 0;
 });
 
 app.controller('cartItemCtrl', function ($scope, $rootScope) {
@@ -220,7 +228,7 @@ app.controller('cartItemCtrl', function ($scope, $rootScope) {
     $scope.calc = () => {
         $scope.item.amount = $scope.quantity * $scope.item.price;
         $scope.update();
-        $scope.calcTotal();
+        $rootScope.calcTotal();
     }
     $scope.delete = (id) => {
         $('#delete-modal')
@@ -234,17 +242,58 @@ app.controller('cartItemCtrl', function ($scope, $rootScope) {
                     setTimeout(function () {
                         $scope.deleted = $rootScope.cart.splice(index, 1);
                         $('#delete-modal').modal('hide');
+                        if (typeof (Storage) !== "undefined") {
+                            // Store
+                            sessionStorage.setItem("cart", JSON.stringify($rootScope.cart));
+                        }
                         $scope.$apply();
                     }, 0)
                 }
-            })
+            });
     }
     $scope.update = () => {
         $rootScope.cart[$scope.index].quantity = $scope.quantity;
         $rootScope.cart[$scope.index].amount = $scope.item.amount;
     }
 });
+app.controller('checkoutCtrl', function ($scope, $rootScope, $window) {
+    $rootScope.calcTotal();
+    $scope.customerName = '';
+    $scope.customerPhone = '';
+    $scope.customerAddress = '';
+    $scope.leave = () => {
+        sessionStorage.setItem("customer", JSON.stringify({
+            name: $scope.customerName,
+            phone: $scope.customerPhone,
+            address: $scope.customerAddress
+        }));
+        $window.location.href = '#!checkout-success'
+    }
 
+})
+app.controller('checkoutSuccessCtrl', function ($scope, $rootScope, $http) {
+    $rootScope.calcTotal();
+    $scope.customerInfo = JSON.parse(sessionStorage.getItem("customer"));
+    $scope.customerInfo.phone = $scope.customerInfo.phone.toString().padStart(10, '0');
+    let data = {
+        date: new Date(),
+        total: $rootScope.totalProducts,
+        amount: $rootScope.totalAmount,
+        customer: {
+            name: $scope.customerInfo.name,
+            phone: $scope.customerInfo.phone,
+            address: $scope.customerInfo.address,
+        },
+        products: $rootScope.cart,
+        status: 'Chưa xử lý'
+    }
+    $http.post('/api/order', data).then(res => {
+        if (res.data.id) {
+            $scope.id = res.data.id;
+        }
+    });
+    sessionStorage.clear();
+})
 app.controller('productCtrl', function ($scope, $rootScope, $routeParams, $route, $http) {
     $scope.id = $routeParams.id;
     $scope.activeColor = '';
@@ -304,6 +353,10 @@ app.controller('productCtrl', function ($scope, $rootScope, $routeParams, $route
                 thumbImage: product.images[0] || ''
             });
             $rootScope.cart.push(item);
+        }
+        if (typeof (Storage) !== "undefined") {
+            // Store
+            sessionStorage.setItem("cart", JSON.stringify($rootScope.cart));
         }
         // hiển thị thông báo
         $('#liveToast').toast('show');

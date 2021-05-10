@@ -2,8 +2,8 @@ var dbConnect = require('./connect');
 var User = require('./models/user');
 dbConnect();
 var user = new User({
-    username: 'danhdz',
-    password: 'danhdz'
+    username: 'admin',
+    password: '12345'
 })
 user.save((err) => {
     console.log(err)
