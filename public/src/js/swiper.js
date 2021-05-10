@@ -1,5 +1,5 @@
 window.onload = function () {
-    var mySwiper = new Swiper('#product-swiper', {
+    var mySwiper = new Swiper('.product-swiper', {
         // Optional parameters
         direction: 'horizontal',
         loop: true,
