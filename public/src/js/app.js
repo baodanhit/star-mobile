@@ -7,6 +7,7 @@ app.controller("appCtrl", ($scope, $rootScope, $http, $window) => {
             $rootScope.appData = res.data.data;
             $scope.menu = $rootScope.appData.menu;
             $scope.products = $rootScope.appData.products;
+            setTimeout($scope.productSwiper, 1000)
         })
         .catch((error) => {
             console.log(error);
@@ -68,11 +69,10 @@ app.controller("appCtrl", ($scope, $rootScope, $http, $window) => {
             zoom: true,
         });
     }
-    window.onload = $scope.productSwiper;
     $rootScope.$on("$routeChangeSuccess", function ($event, $currentRoute, $previousRoute) {
         if ($currentRoute !== undefined) {
             if ($currentRoute.loadedTemplateUrl == '/views/home.html') {
-                setTimeout($scope.productSwiper(), 1000);
+                setTimeout($scope.productSwiper, 1000);
             }
             else if ($currentRoute.loadedTemplateUrl == '/views/cart.html') {
                 $('#searchBar').addClass('hiden-mobile');
